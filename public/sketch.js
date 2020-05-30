@@ -49,7 +49,7 @@ function setup() {
 
 	
 
-	socket = io.connect('http://azcue.herokuapp.com')
+	socket = io.connect('https://azcue.herokuapp.com')
 	//socket = io.connect('http://localhost:3000')
 	socket.on("host", recieveHost)
 	socket.on("join", recieveJoin)

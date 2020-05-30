@@ -1,20 +1,27 @@
 {
   "name": "warewolf",
   "version": "1.0.0",
-  "description": "card game warewolf, using sockets by Azcué",
+  "description": "Warewolf, a card's game.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RodAzcue/Warewolf.git"
+  },
   "keywords": [
-    "sockets",
-    "p5.js",
-    "node.js",
-    "warewolf"
+    "node",
+    "express",
+    "socket.io"
   ],
-  "author": "Rodrigo Azcué",
+  "author": "Rodrigo Azcué López",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RodAzcue/Warewolf/issues"
+  },
+  "homepage": "https://github.com/RodAzcue/Warewolf#readme",
   "dependencies": {
     "express": "^4.17.1",
     "socket.io": "^2.3.0"

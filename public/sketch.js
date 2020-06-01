@@ -30,8 +30,8 @@ function setup() {
 	cnv = new Size(windowWidth,windowHeight - 4, windowWidth/200)
 	createCanvas(cnv.base, cnv.altura);
 
-	//socket = io.connect('https://azcue.herokuapp.com')
-	socket = io.connect('http://localhost:3000')
+	socket = io.connect('https://azcue.herokuapp.com')
+	//socket = io.connect('http://localhost:3000')
 	socket.on("host", recieveHost)
 	socket.on("join", recieveJoin)
 	socket.on("game", recieveGame)

@@ -1,12 +1,27 @@
 
 class guiObject{
-	constructor(position, size, genre, text = ""){
+	constructor(position, size, genre, text = "", list = []){
 		this.position = position
 		this.size = size
 		this.genre = genre
 		this.text = text
+		this.list = list
 	}
 	show(){
+		if(this.genre.type == "list"){
+			for (var i = this.list.length - 1; i >= 0; i--) {
+				noStroke()
+				rectMode(CORNER)
+				fill(229)
+				rect(this.position.x, (this.position.y - this.size.por * 5.7)  - (i*(-this.size.altura- this.size.por)), this.size.base, this.size.altura, this.size.por)
+
+				noStroke()
+			 	fill(69)
+			 	textSize(this.size.altura - this.size.altura/4)
+			 	textAlign(LEFT);
+				text(this.list[i], this.position.x + this.size.por, (this.position.y - this.size.por*.4) - (i * (-this.size.altura- this.size.por)))
+			}
+		}
 		if(this.genre.type == "text"){
 			if(this.genre.subtype == "title"){
 				noStroke()
@@ -16,11 +31,20 @@ class guiObject{
 				text(this.text, this.position.x, this.position.y)
 			}
 			if(this.genre.subtype == "tag"){
-				noStroke()
-			 	fill(69)
-			 	textSize(this.size.altura)
-			 	textAlign(RIGHT);
-				text(this.text, this.position.x, this.position.y)
+				if(this.genre.subsubtype == "right" || this.genre.subsubtype == ""){
+					noStroke()
+				 	fill(69)
+				 	textSize(this.size.altura)
+				 	textAlign(RIGHT);
+					text(this.text, this.position.x, this.position.y)
+				}
+				if(this.genre.subsubtype == "left"){
+					noStroke()
+				 	fill(69)
+				 	textSize(this.size.altura)
+				 	textAlign(LEFT);
+					text(this.text, this.position.x, this.position.y)
+				}
 			}
 		}
 		if(this.genre.type == "input"){
@@ -78,20 +102,40 @@ class guiObject{
 			}
 		}
 	}
-	updateInfo(position, size, genre = this.genre, text = this.text){
+	updateInfo(position, size, genre = this.genre, text = this.list){
 		this.position = position
 		this.size = size
 		this.genre = genre
 		this.text = text
+		this.list = list
 	}
 }
 
 class tag extends guiObject{
-	constructor(position, size, genre, text){
+	constructor(position, size, genre, text,id="none"){
 		super(position, size, genre, text)
+		this.id = id
 	}
 	show(){super.show()}
 	updateInfo(position, size, genre, text){super.updateInfo(position, size, genre, text)}
+	updateText(id, text){
+		if(this.id == id){
+			this.text = text
+		}
+	}
+}
+
+class list extends guiObject{
+	constructor(position, size, genre, text, list){
+		super(position, size, genre, text, list)
+	}
+	show(){super.show()}
+	updateInfo(position, size, genre, text,list){super.updateInfo(position, size, genre, text,list)}
+	updateList(text,list){
+		if(this.text == text){
+			this.list = list
+		}
+	}
 }
 
 class button extends guiObject{
@@ -104,7 +148,7 @@ class button extends guiObject{
 		if(mousePressed == true){
 			if(this.colition()){
 				this.genre.subtype = "pressed"
-				eventButtonPressed()
+				buttonPressed(this)
 			}else{
 				this.genre.subtype = "unpressed"
 			}
@@ -132,14 +176,23 @@ class input extends guiObject{
 			this.genre.subtype = "unpressed"
 		}
 	}
-	addText(text, num){
+	addText(key){
 		if(this.genre.subtype == "pressed"){
-			if(this.text.length < num){
-				this.text += text
+			if(this.genre.subsubtype == "char"){
+				if(this.text.length < 10){
+					this.text += key
+				}
 			}
+			if(this.genre.subsubtype == "int"){
+				if(this.text.length < 4){
+					if(key == 0 || key == 1 || key == 2 || key == 3 ||key == 4 || key == 5 || key == 6 || key == 7 || key == 8 || key == 9){
+						this.text += key
+					}
+				}
+			}	
 		}
 	}
-	deleteText(){
+	delText(){
 		if(this.genre.subtype == "pressed"){
 			this.text = this.remove_character(this.text, this.text.length - 1)
 		}

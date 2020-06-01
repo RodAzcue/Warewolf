@@ -1,4 +1,8 @@
 
+//[229, 229, 229], 	//white
+//[204, 204, 204], 	//gray
+//[102, 102, 102]		//Black
+//[69,69,69] // even blacker
 
 class Dye {
 
@@ -31,10 +35,11 @@ class Size {
 
 class Genre {
 
-	constructor(type, subtype) {
+	constructor(type, subtype="", subsubtype="") {
 
 		this.type = type
 		this.subtype = subtype
+		this.subsubtype = subsubtype
 	}
 }
 

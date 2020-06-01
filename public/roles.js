@@ -4,11 +4,6 @@ let night = "night"
 let dead = "dead"
 let alive = "alive"
 
-
-
-
-
-
 class gameClass{
 	constructor(id = "", host = "", players = [], roles = [], state = "login", dayNum = 0, dayCicle = night){
 		//Cuatro numeros
